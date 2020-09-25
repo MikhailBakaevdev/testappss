@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import eng from './translate/eng.json'
-import ru from './translate/ru.json'
+
 
 import './App.css'
 const maxLength = max => value =>
