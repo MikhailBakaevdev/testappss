@@ -1,5 +1,6 @@
 {
     "firstName" : "Имя",
     "lastName" : "Фамилия",
-    "send": "Отправить"
+    "send": "Отправить",
+    "disciption": "RU"
 }

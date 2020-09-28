@@ -27,23 +27,25 @@ const validate  = values => {
 
 class Form extends Component {
     constructor() {
-        super ();
-         this.state = {
-            label: eng.firstName,
-            send: eng.send,
-            password: eng.lastName,
+        super ()
+        this.state = {
+            local: eng
          };
     }
-    russianLang = () => this.setState({
-        label: ru.firstName,
-        send: ru.send,
-        password: ru.lastName,
-    })
-    englishLang = () => this.setState({
-        label: eng.firstName,
-        send: eng.send,
-        password: eng.lastName,
-    })
+    handleClick = () => {
+        if ( this.state.local === eng) {
+            this.setState({
+                local: ru
+            })
+        } else {
+            if (this.state.local === ru) {
+                this.setState({
+                    local: eng
+                })
+            }
+        }
+    }
+
     render(){
         const {handleSubmit} = this.props;
 
@@ -52,13 +54,12 @@ class Form extends Component {
         return (
             <form className="form" onSubmit={handleSubmit(submit)}>
             <div className="select-language">
-                <button type="button" onClick={this.russianLang}>RU</button>
-                <button type="button" onClick={this.englishLang}>EN</button>
+                <button type="button" onClick={this.handleClick}>{this.state.local.disciption}</button>
             </div>
-                <Field  component={renderInput} label={this.state.label} name="userName" type="text" validate={[required,maxLength10]} />
-                <Field  component={renderInput} label={this.state.password} name="password" type="password" validate={[required]}/>
+                <Field  component={renderInput} label={this.state.local.firstName} name="userName" type="text" validate={[required,maxLength10]} />
+                <Field  component={renderInput} label={this.state.local.lastName} name="password" type="password" validate={[required]}/>
                 <div>
-                    <button className="form__button" type="submit">{this.state.send}</button>
+                    <button className="form__button" type="submit">{this.state.local.send}</button>
                 </div>
             </form>
         );
