@@ -1,5 +1,5 @@
 {
-    "name" : "Имя",
-    "password" : "Пароль",
+    "firstName" : "Имя",
+    "lastName" : "Фамилия",
     "send": "Отправить"
 }

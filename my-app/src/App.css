@@ -9,6 +9,10 @@ label {
     margin-left: 35%;
 }
 
+span {
+    margin-left: 35%;
+}
+
 .App {
     display: flex;
     height: 100%;

@@ -1,5 +1,5 @@
 {
-    "name" : "Name",
-    "password" : "Password",
+    "firstName" : "Name",
+    "lastName" : "Last Name",
     "send": "Send"
 }

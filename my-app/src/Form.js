@@ -1,48 +1,49 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import eng from './translate/eng.json'
+import ru from './translate/ru.json'
 
 
 import './App.css'
 const maxLength = max => value =>
   value && value.length > max ? `Must be ${max} characters or less` : undefined
 const maxLength10 = maxLength(10)
+const required = value => (value || typeof value === 'number' ? undefined : 'Required')
 const validate  = values => {
     const errors = {}
-    if (!values.userName) {
-      errors.userName = 'Required'
-    }
-    if (!values.password) {
-      errors.password = 'Required'
-    }
     return errors
   }
-  const renderInput = ({ input, meta, label ,}) => 
-    <div>
+  const renderInput = ({ input, meta : { touched, error, warning }, label }) => 
+    (<div>
         <label>
             {label}
         </label>
         <input className="form__text-input"  {...input}/>
-        {meta.error &&
-        <span>
-            {meta.error}
-        </span>}
+        {touched &&
+        ((error && <span>{error}</span>) ||
+          (warning && <span>{warning}</span>))}
     </div>
-
-
-
-
-
+    )
 
 class Form extends Component {
     constructor() {
         super ();
-        this.state = {
-            label: eng.name,
+         this.state = {
+            label: eng.firstName,
             send: eng.send,
-            password: eng.password
+            password: eng.lastName,
          };
-      }
+    }
+    russianLang = () => this.setState({
+        label: ru.firstName,
+        send: ru.send,
+        password: ru.lastName,
+    })
+    englishLang = () => this.setState({
+        label: eng.firstName,
+        send: eng.send,
+        password: eng.lastName,
+    })
     render(){
         const {handleSubmit} = this.props;
 
@@ -51,11 +52,11 @@ class Form extends Component {
         return (
             <form className="form" onSubmit={handleSubmit(submit)}>
             <div className="select-language">
-                <button type="button">EN</button>
-                <button type="button">RU</button>
+                <button type="button" onClick={this.russianLang}>RU</button>
+                <button type="button" onClick={this.englishLang}>EN</button>
             </div>
-                <Field  component={renderInput} label={this.state.label} name="userName" type="text" validate={maxLength10} />
-                <Field  component={renderInput} label={this.state.password} name="password" type="password"/>
+                <Field  component={renderInput} label={this.state.label} name="userName" type="text" validate={[required,maxLength10]} />
+                <Field  component={renderInput} label={this.state.password} name="password" type="password" validate={[required]}/>
                 <div>
                     <button className="form__button" type="submit">{this.state.send}</button>
                 </div>
